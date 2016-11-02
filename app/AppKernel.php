@@ -8,13 +8,46 @@ class AppKernel extends Kernel
     public function registerBundles()
     {
         $bundles = [
+            // enable symfony-standard bundles
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
+            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+
+            // enable cmf bundles
+            new Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle(),
+            new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
+            new Symfony\Cmf\Bundle\CoreBundle\CmfCoreBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Symfony\Cmf\Bundle\MenuBundle\CmfMenuBundle(),
+            new Symfony\Cmf\Bundle\ContentBundle\CmfContentBundle(),
+            new Symfony\Cmf\Bundle\TreeBrowserBundle\CmfTreeBrowserBundle(),
+            new Symfony\Cmf\Bundle\BlockBundle\CmfBlockBundle(),
+            new Symfony\Cmf\Bundle\RoutingAutoBundle\CmfRoutingAutoBundle(),
+            new Symfony\Cmf\Bundle\ResourceBundle\CmfResourceBundle(),
+            new Symfony\Cmf\Bundle\ResourceRestBundle\CmfResourceRestBundle(),
+
+            // language switcher
+            new Lunetics\LocaleBundle\LuneticsLocaleBundle(),
+
+            // API
+            new FOS\RestBundle\FOSRestBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
+
+            // admin bundle
+            new Sonata\BlockBundle\SonataBlockBundle(),
+            new Sonata\CoreBundle\SonataCoreBundle(),
+            new Sonata\AdminBundle\SonataAdminBundle(),
+            new Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(),
+            new Sonata\TranslationBundle\SonataTranslationBundle(),
+            new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
+            new Burgov\Bundle\KeyValueFormBundle\BurgovKeyValueFormBundle(),
+
+            // app bundle
             new AppBundle\AppBundle(),
         ];
 
@@ -35,16 +68,16 @@ class AppKernel extends Kernel
 
     public function getCacheDir()
     {
-        return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();
+        return dirname(__DIR__) . '/var/cache/' . $this->getEnvironment();
     }
 
     public function getLogDir()
     {
-        return dirname(__DIR__).'/var/logs';
+        return dirname(__DIR__) . '/var/logs';
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
+        $loader->load($this->getRootDir() . '/config/config_' . $this->getEnvironment() . '.yml');
     }
 }

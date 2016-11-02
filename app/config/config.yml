@@ -1,16 +1,17 @@
 imports:
     - { resource: parameters.yml }
+    - { resource: phpcr.yml }
     - { resource: security.yml }
     - { resource: services.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: vi
 
 framework:
     #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -36,6 +37,23 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+
+# Assetic Configuration
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: false
+    # bundles: [ ] # if enabled, every bundle must be added
+    #java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        coffee:
+           bin:  '%coffee.bin%'
+           node: '%coffee.node%'
+           apply_to: '%coffee.extension%'
+        # closure:
+        #     jar: '%kernel.root_dir%/java/compiler.jar'
+        # yui_css:
+        #     jar: '%kernel.root_dir%/java/yuicompressor-2.4.2.jar'
 
 # Doctrine Configuration
 doctrine:
@@ -66,3 +84,199 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# cmf configuration
+doctrine_phpcr:
+    # configure the PHPCR session
+    session:
+        backend:   '%phpcr_backend%'
+        workspace: '%phpcr_workspace%'
+        username:  '%phpcr_user%'
+        password:  '%phpcr_pass%'
+    # enable the ODM layer
+    odm:
+        auto_mapping: true
+        auto_generate_proxy_classes: '%kernel.debug%'
+        locales:
+            vi: [en]
+            en: [vi]
+
+knp_menu:
+    twig: true
+
+cmf_core:
+    multilang:
+        locales: '%locales%'
+    persistence:
+        phpcr:
+            enabled: true
+
+cmf_routing:
+    chain:
+        routers_by_id:
+            cmf_routing.dynamic_router: 20
+            router.default: 100
+    dynamic:
+        route_collection_limit: 10
+        controllers_by_class:
+            Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute:  cmf_routing.redirect_controller:redirectAction
+
+        templates_by_class:
+            Symfony\Cmf\Bundle\ContentBundle\Doctrine\Phpcr\StaticContent: static_content/index.html.twig
+
+cmf_menu:
+    voters:
+        content_identity: ~
+
+cmf_resource:
+    repositories:
+        default:
+            type: doctrine_phpcr_odm
+
+cmf_resource_rest:
+    enhancer_map:
+        - { repository: default, enhancer: sonata_admin }
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+        sonata.admin.block.search_result:
+            contexts:   [admin]
+        sonata_admin_doctrine_phpcr.tree_block:
+            settings:
+                id: '/cms'
+            contexts:   [admin]
+
+sonata_admin:
+    extensions:
+        cmf_core.admin_extension.child:
+            implements:
+                - Symfony\Cmf\Bundle\CoreBundle\Model\ChildInterface
+        cmf_core.admin_extension.publish_workflow.time_period:
+            implements:
+                - Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodInterface
+        cmf_core.admin_extension.publish_workflow.publishable:
+            implements:
+                - Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishableInterface
+        cmf_menu.admin_extension.menu_node_referrers:
+            implements:
+                - Symfony\Cmf\Bundle\MenuBundle\Model\MenuNodeReferrersInterface
+        cmf_menu.admin_extension.menu_options:
+            implements:
+                - Symfony\Cmf\Bundle\MenuBundle\Model\MenuOptionsInterface
+        cmf_routing.admin_extension.route_referrers:
+            implements:
+                - Symfony\Cmf\Component\Routing\RouteReferrersInterface
+        cmf_routing.admin_extension.frontend_link:
+            implements:
+                - Symfony\Cmf\Component\Routing\RouteReferrersReadInterface
+            extends:
+                - Symfony\Component\Routing\Route
+
+    templates:
+        layout:     admin/custom_layout.html.twig
+        user_block: admin/user_block.html.twig
+    dashboard:
+        blocks:
+            - { position: right, type: sonata.admin.block.admin_list }
+            - { position: left, type: sonata_admin_doctrine_phpcr.tree_block }
+        groups:
+            content:
+                label: Content
+                icon: '<i class="fa fa-file-text-o"></i>'
+                items:
+                    - cmf_content.admin
+                    - cmf_block.simple_admin
+                    - cmf_block.container_admin
+                    - cmf_block.reference_admin
+                    - cmf_block.action_admin
+            routing:
+                label: URLs
+                icon: '<i class="fa fa-link"></i>'
+                items:
+                    - cmf_routing.route_admin
+                    - cmf_routing.redirect_route_admin
+            menu:
+                label: Menu
+                icon: '<i class="fa  fa-bars"></i>'
+                items:
+                    - cmf_menu.menu_admin
+                    - cmf_menu.node_admin
+
+sonata_doctrine_phpcr_admin:
+    templates:
+        form:
+            - admin/form_admin_fields.html.twig
+    document_tree_defaults: [locale]
+    document_tree:
+        Doctrine\ODM\PHPCR\Document\Generic:
+            valid_children:
+                - all
+        Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ReferenceBlock:
+            valid_children: []
+        Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ActionBlock:
+            valid_children: []
+        Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock:
+            valid_children: []
+        Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SlideshowBlock:
+            valid_children:
+                - Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ImagineBlock
+        Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ImagineBlock:
+            valid_children: []
+        Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ContainerBlock:
+            valid_children:
+                - Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SimpleBlock
+                - Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ContainerBlock
+                - Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ReferenceBlock
+                - Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\ActionBlock
+                - Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\SlideshowBlock
+        Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route:
+            valid_children:
+                - Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\Route
+                - Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute
+        Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Phpcr\RedirectRoute:
+            valid_children: []
+        Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu:
+            valid_children:
+                - Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode
+        Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode:
+            valid_children:
+                - Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode
+
+ivory_ck_editor:
+    configs:
+        cmf_content: { toolbar: standard }
+
+lunetics_locale:
+    strict_mode: true
+    guessing_order:
+        - router
+        - cookie
+        - browser
+    allowed_locales: '%locales%'
+
+jms_serializer:
+    metadata:
+        auto_detection: true
+        directories:
+            CmfContentBundle:
+                namespace_prefix: 'Symfony\Cmf\Bundle\ContentBundle'
+                path: '@AppBundle/Resources/config/serializer/cmf'
+
+#fos_rest:
+#    view:
+#        force_redirects:
+#            html: true
+#        formats:
+#            json: true
+#            xml: true
+#        templating_formats:
+#            html: true
+#    allowed_methods_listener: true
+#    access_denied_listener:
+#        json: true
+#    format_listener:
+#        rules:
+#            - { path: ^/, priorities: [ html, json, xml, css ], fallback_format: html, prefer_extension: false }
