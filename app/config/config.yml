@@ -142,12 +142,12 @@ sonata_block:
     blocks:
         sonata.admin.block.admin_list:
             contexts:   [admin]
-        sonata.admin.block.search_result:
-            contexts:   [admin]
-        sonata_admin_doctrine_phpcr.tree_block:
-            settings:
-                id: '/cms'
-            contexts:   [admin]
+#        sonata.admin.block.search_result:
+#            contexts:   [admin]
+#        sonata_admin_doctrine_phpcr.tree_block:
+#            settings:
+#                id: '/cms'
+#            contexts:   [admin]
 
 sonata_admin:
     extensions:
@@ -175,13 +175,13 @@ sonata_admin:
             extends:
                 - Symfony\Component\Routing\Route
 
-    templates:
-        layout:     admin/custom_layout.html.twig
-        user_block: admin/user_block.html.twig
+#    templates:
+#        layout:     admin/custom_layout.html.twig
+#        user_block: admin/user_block.html.twig
     dashboard:
         blocks:
             - { position: right, type: sonata.admin.block.admin_list }
-            - { position: left, type: sonata_admin_doctrine_phpcr.tree_block }
+#            - { position: left, type: sonata_admin_doctrine_phpcr.tree_block }
         groups:
             content:
                 label: Content
@@ -207,8 +207,8 @@ sonata_admin:
 
 sonata_doctrine_phpcr_admin:
     templates:
-        form:
-            - admin/form_admin_fields.html.twig
+#        form:
+#            - admin/form_admin_fields.html.twig
     document_tree_defaults: [locale]
     document_tree:
         Doctrine\ODM\PHPCR\Document\Generic:
@@ -245,9 +245,18 @@ sonata_doctrine_phpcr_admin:
             valid_children:
                 - Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\MenuNode
 
+sonata_translation:
+    locales: '%locales%'
+    default_locale: '%locale%'
+    phpcr: true
+
 ivory_ck_editor:
     configs:
         cmf_content: { toolbar: standard }
+
+sensio_framework_extra:
+    router:  { annotations: true }
+    request: { converters: true }
 
 lunetics_locale:
     strict_mode: true
@@ -265,18 +274,18 @@ jms_serializer:
                 namespace_prefix: 'Symfony\Cmf\Bundle\ContentBundle'
                 path: '@AppBundle/Resources/config/serializer/cmf'
 
-#fos_rest:
-#    view:
-#        force_redirects:
-#            html: true
-#        formats:
-#            json: true
-#            xml: true
-#        templating_formats:
-#            html: true
-#    allowed_methods_listener: true
-#    access_denied_listener:
-#        json: true
-#    format_listener:
-#        rules:
-#            - { path: ^/, priorities: [ html, json, xml, css ], fallback_format: html, prefer_extension: false }
+fos_rest:
+    view:
+        force_redirects:
+            html: true
+        formats:
+            json: true
+            xml: true
+        templating_formats:
+            html: true
+    allowed_methods_listener: true
+    access_denied_listener:
+        json: true
+    format_listener:
+        rules:
+            - { path: ^/, priorities: [ html, json, xml, css ], fallback_format: html, prefer_extension: false }
