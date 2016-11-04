@@ -142,14 +142,16 @@ sonata_block:
     blocks:
         sonata.admin.block.admin_list:
             contexts:   [admin]
-#        sonata.admin.block.search_result:
-#            contexts:   [admin]
-#        sonata_admin_doctrine_phpcr.tree_block:
-#            settings:
-#                id: '/cms'
-#            contexts:   [admin]
+        sonata.admin.block.search_result:
+            contexts:   [admin]
+        sonata_admin_doctrine_phpcr.tree_block:
+            settings:
+                id: '/cms'
+            contexts:   [admin]
 
 sonata_admin:
+    security:
+        handler: sonata.admin.security.handler.role
     extensions:
         cmf_core.admin_extension.child:
             implements:
@@ -181,7 +183,7 @@ sonata_admin:
     dashboard:
         blocks:
             - { position: right, type: sonata.admin.block.admin_list }
-#            - { position: left, type: sonata_admin_doctrine_phpcr.tree_block }
+            - { position: left, type: sonata_admin_doctrine_phpcr.tree_block }
         groups:
             content:
                 label: Content
