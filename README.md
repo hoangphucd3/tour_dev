@@ -58,6 +58,10 @@ released under the MIT or BSD license.
 
 Enjoy!
 
+Beta Bundles fixes
+------------------
+SonataMedia Bundle - https://github.com/sonata-project/SonataMediaBundle/pull/1115
+
 [1]:  https://symfony.com/doc/3.0/book/installation.html
 [6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
 [7]:  https://symfony.com/doc/3.0/book/doctrine.html

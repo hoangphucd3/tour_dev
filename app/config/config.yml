@@ -71,11 +71,20 @@ doctrine:
         #   2. Uncomment database_path in parameters.yml.dist
         #   3. Uncomment next line:
         #     path:     "%database_path%"
-
+        types:
+            json: Sonata\Doctrine\Types\JsonType
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
-        naming_strategy: doctrine.orm.naming_strategy.underscore
-        auto_mapping: true
+#        naming_strategy: doctrine.orm.naming_strategy.underscore
+#        auto_mapping: true
+        entity_managers:
+            default:
+                mappings:
+                    AppBundle:
+                    ApplicationSonataClassificationBundle: ~
+                    SonataClassificationBundle: ~
+                    ApplicationSonataMediaBundle: ~
+                    SonataMediaBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -100,6 +109,9 @@ doctrine_phpcr:
         locales:
             vi: [en]
             en: [vi]
+        mappings:
+            SonataMediaBundle:
+                prefix: Sonata\MediaBundle\PHPCR
 
 knp_menu:
     twig: true
@@ -194,6 +206,7 @@ sonata_admin:
                     - cmf_block.container_admin
                     - cmf_block.reference_admin
                     - cmf_block.action_admin
+                    - sonata.media.admin.media
             routing:
                 label: URLs
                 icon: '<i class="fa fa-link"></i>'
@@ -251,6 +264,36 @@ sonata_translation:
     locales: '%locales%'
     default_locale: '%locale%'
     phpcr: true
+
+sonata_media:
+    # if you don't use default namespace configuration
+    #class:
+    #    media:        MyVendor\MediaBundle\Entity\Media
+    #    gallery:      MyVendor\MediaBundle\Entity\Gallery
+    #    gallery_item: MyVendor\MediaBundle\Entity\GalleryItem
+    db_driver: doctrine_orm # or doctrine_mongodb, doctrine_phpcr it is mandatory to choose one here
+    default_context: default # you need to set a context
+    contexts:
+        default:  # the default context is mandatory
+            providers:
+#                - sonata.media.provider.dailymotion
+                - sonata.media.provider.youtube
+                - sonata.media.provider.image
+                - sonata.media.provider.file
+#                - sonata.media.provider.vimeo
+
+            formats:
+                small: { width: 100 , quality: 70}
+                big:   { width: 500 , quality: 70}
+
+    cdn:
+        server:
+            path: /uploads/media # http://media.sonata-project.org/
+
+    filesystem:
+        local:
+            directory:  "%kernel.root_dir%/../web/uploads/media"
+            create:     false
 
 ivory_ck_editor:
     configs:

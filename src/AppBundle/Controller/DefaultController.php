@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\AppBundle;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,13 +21,12 @@ class DefaultController extends Controller
 
 //        return new Response($encoded);
 
-        $doctrine = $this->getDoctrine()->getManager();
-        $user = $doctrine->getRepository('AppBundle:User')->find(1);
-        $user->setRoles('ROLE_SUPER_ADMIN');
-        $doctrine->flush();
+//        $doctrine = $this->getDoctrine()->getManager();
+//        $user = $doctrine->getRepository('AppBundle:User')->find(1);
+//        $user->setRoles('ROLE_SUPER_ADMIN');
+//        $doctrine->flush();
 //        return new Response($doctrine->getRepository('AppBundle:User')->findAll());
         return new Response(dump($this->get('app.user_service')->findUsers()));
-
         // replace this example code with whatever you need
 //        return $this->render('default/index.html.twig', [
 //            'base_dir' => realpath($this->getParameter('kernel.root_dir') . '/..') . DIRECTORY_SEPARATOR,
