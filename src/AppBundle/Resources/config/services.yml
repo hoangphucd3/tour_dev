@@ -28,3 +28,9 @@ services:
         arguments: [~, AppBundle\Entity\TourHotel, AppBundle:TourHotelAdmin]
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: TourHotel }
+
+    app.admin.user:
+        class: AppBundle\Admin\UserAdmin
+        arguments: [~, AppBundle\Entity\User, AppBundle:UserAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: User }
