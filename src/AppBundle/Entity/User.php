@@ -130,7 +130,7 @@ class User implements UserInterface, \Serializable
      */
     public function getRoles()
     {
-        $roles = array($this->roles);
+        $roles = (array)$this->roles;
 
         // Makes sure to have at least one role
         $roles[] = static::ROLE_DEFAULT;
