@@ -12,17 +12,6 @@ use Sonata\AdminBundle\Show\ShowMapper;
 class TourHotelAdmin extends AbstractAdmin
 {
     /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        $datagridMapper
-            ->add('id')
-            ->add('guestStay')
-            ->add('roomPrice');
-    }
-
-    /**
      * @param ListMapper $listMapper
      */
     protected function configureListFields(ListMapper $listMapper)
@@ -46,17 +35,6 @@ class TourHotelAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('tour')
-            ->add('guestStay')
-            ->add('roomPrice');
-    }
-
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
             ->add('hotel', ModelListType::class)
             ->add('guestStay')
             ->add('roomPrice');
