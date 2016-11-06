@@ -67,6 +67,14 @@ class TourAdmin extends AbstractAdmin
                         'admin_code' => 'app.admin.tour_location',
                     )
                 )
+            ->end()
+            ->with('group.tour_hotel', array('class' => 'col-md-12'))
+                ->add('hotels', CollectionType::class, array(), array(
+                        'edit' => 'inline',
+                        'inline' => 'table',
+                        'admin_code' => 'app.admin.tour_hotel',
+                    )
+                )
             ->end();
     }
 
