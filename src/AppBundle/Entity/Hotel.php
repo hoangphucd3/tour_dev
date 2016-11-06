@@ -50,7 +50,7 @@ class Hotel
     private $phoneNumber;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TourHotel", mappedBy="tour", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TourHotel", mappedBy="hotel", cascade={"remove"})
      */
     private $tours;
 
@@ -229,5 +229,13 @@ class Hotel
     public function getTours()
     {
         return $this->tours;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

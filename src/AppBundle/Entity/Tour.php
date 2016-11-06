@@ -52,7 +52,7 @@ class Tour
     /**
      * @var string
      *
-     * @ORM\Column(name="moTa", type="string")
+     * @ORM\Column(name="moTa", type="text")
      */
     private $description;
 
@@ -62,7 +62,7 @@ class Tour
     private $locations;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TourHotel", mappedBy="hotel", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TourHotel", mappedBy="tour", cascade={"remove"})
      */
     private $hotels;
 
@@ -82,6 +82,7 @@ class Tour
     {
         return $this->id;
     }
+
     /**
      * @var string
      */
@@ -330,5 +331,13 @@ class Tour
     public function getHotels()
     {
         return $this->hotels;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

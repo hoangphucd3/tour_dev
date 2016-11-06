@@ -54,6 +54,7 @@ class TourLocation
     {
         return $this->id;
     }
+
     /**
      * @var string
      */
@@ -154,5 +155,13 @@ class TourLocation
     public function getLocation()
     {
         return $this->location;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getTour()->getTourName() . ' - ' . $this->getLocation()->getName();
     }
 }

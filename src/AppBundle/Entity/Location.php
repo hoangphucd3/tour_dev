@@ -31,7 +31,7 @@ class Location
     /**
      * @var string
      *
-     * @ORM\Column(name="moTa", type="string")
+     * @ORM\Column(name="moTa", type="text", nullable=true)
      */
     private $description;
 
@@ -198,5 +198,13 @@ class Location
     public function getTours()
     {
         return $this->tours;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

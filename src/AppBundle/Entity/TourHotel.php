@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TourHotel
  *
- * @ORM\Table(name="tour_hotel")
+ * @ORM\Table(name="tour_khachsan")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TourHotelRepository")
  */
 class TourHotel
@@ -39,7 +39,7 @@ class TourHotel
      * @var Tour
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Tour", inversedBy="hotels")
-     * @ORM\JoinColumn(name="hotel_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="tour_id", referencedColumnName="id")
      */
     private $tour;
 
@@ -60,6 +60,7 @@ class TourHotel
     {
         return $this->id;
     }
+
     /**
      * @var string
      */
@@ -184,5 +185,13 @@ class TourHotel
     public function getHotel()
     {
         return $this->hotel;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getTour()->getTourName() . ' - ' . $this->getHotel()->getName();
     }
 }

@@ -1,10 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-    <file source-language="vi" target-language="vi" datatype="plaintext" original="file.ext">
+    <file datatype="plaintext" original="file.ext" source-language="vi" target-language="vi">
         <body>
             <trans-unit id="1">
                 <source>Symfony is great</source>
                 <target>J'aime Symfony</target>
+            </trans-unit>
+            <trans-unit id="group.content">
+                <source>group.content</source>
+                <target>Nội dung</target>
+            </trans-unit>
+            <trans-unit id="label.tour_name">
+                <source>label.tour_name</source>
+                <target>Tên tour</target>
+            </trans-unit>
+            <trans-unit id="label.start_date">
+                <source>label.start_date</source>
+                <target>Ngày khởi hành</target>
+            </trans-unit>
+            <trans-unit id="label.end_date">
+                <source>label.end_date</source>
+                <target>Ngày kết thúc</target>
+            </trans-unit>
+            <trans-unit id="label.amount">
+                <source>label.amount</source>
+                <target>Số lượng khách</target>
+            </trans-unit>
+            <trans-unit id="label.description">
+                <source>label.description</source>
+                <target>Mô tả</target>
+            </trans-unit>
+            <trans-unit id="group.tour_location">
+                <source>group.tour_location</source>
+                <target>Địa điểm tham quan</target>
             </trans-unit>
         </body>
     </file>
