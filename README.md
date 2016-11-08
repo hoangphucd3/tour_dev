@@ -58,9 +58,15 @@ released under the MIT or BSD license.
 
 Enjoy!
 
-Beta Bundles fixes
+Refercence
 ------------------
 SonataMedia Bundle - https://github.com/sonata-project/SonataMediaBundle/pull/1115
+Traveler Theme - http://travelerdemo.wpengine.com/
+Travel Advisor - http://traveladvisor.chimpgroup.com/
+http://stackoverflow.com/questions/25386431/sonatamediabundle-a-way-to-remove-unlink-thickbox
+http://stackoverflow.com/questions/28921077/symfony-sonata-media-bundle-add-images-videos-to-a-user
+http://stackoverflow.com/questions/24381179/list-images-in-sonata-admin-bundle
+http://stackoverflow.com/questions/31746525/how-to-rename-file-upload-with-sonata-bundle
 
 [1]:  https://symfony.com/doc/3.0/book/installation.html
 [6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
