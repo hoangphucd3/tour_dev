@@ -74,6 +74,8 @@ http://stackoverflow.com/questions/24381179/list-images-in-sonata-admin-bundle
 
 http://stackoverflow.com/questions/31746525/how-to-rename-file-upload-with-sonata-bundle
 
+http://stackoverflow.com/questions/23507505/using-a-repository-outside-of-a-controller-in-symfony2
+
 [1]:  https://symfony.com/doc/3.0/book/installation.html
 [6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
 [7]:  https://symfony.com/doc/3.0/book/doctrine.html
