@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Application\Sonata\MediaBundle\Entity\Gallery;
 use Application\Sonata\MediaBundle\Entity\Media;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -95,6 +96,13 @@ class Tour
      * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"all"})
      */
     private $featured_image;
+
+    /**
+     * @var Gallery
+     *
+     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Gallery", cascade={"all"})
+     */
+    private $gallery;
 
     /**
      * @var int
