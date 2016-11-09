@@ -290,32 +290,32 @@
         }
 
 
-        // if (jQuery(".cs-tourdetial-search").length != '') {
-        //     var fixmeTop = $(".cs-tourdetial-search").offset().top;
-        //     var unfixmeTop = $("#itinerary").offset().top - 740;
-        //     $(window).scroll(function () {
-        //         var $window = $(this);
-        //         if ($window.width() > 310) {
-        //             var currentScroll = $(window).scrollTop();
-        //             //console.log(unfixmeTop + ' :: ' + currentScroll);
-        //             var header = $('.cs-tourdetial-search');
-        //             var headerHeight = header.outerHeight();
-        //             var body = $('body .wrapper');
-        //             if (currentScroll >= unfixmeTop) {
-        //                 header.addClass('cs-tourdetial-search-bottom').removeClass('cs-tourdetial-search-fixed');
-        //                 jQuery(".cs-list-short").removeClass("cs-list-short-fixed");
-        //             } else if (currentScroll >= fixmeTop) {
-        //                 header.addClass('cs-tourdetial-search-fixed').removeClass('cs-tourdetial-search-bottom');
-        //                 jQuery(".cs-list-short").addClass("cs-list-short-fixed");
-        //             } else if (currentScroll <= fixmeTop) {
-        //                 header.removeClass('cs-tourdetial-search-fixed').removeClass('cs-tourdetial-search-bottom');
-        //                 jQuery(".cs-list-short").removeClass("cs-list-short-fixed");
-        //             } else {
-        //                 header.removeClass('cs-tourdetial-search-fixed').removeClass('cs-tourdetial-search-bottom');
-        //             }
-        //         }
-        //     });
-        // }
+        if (jQuery(".cs-tourdetial-search").length != '') {
+            var fixmeTop = $(".cs-tourdetial-search").offset().top;
+            var unfixmeTop = $("#itinerary").offset().top - 740;
+            $(window).scroll(function () {
+                var $window = $(this);
+                if ($window.width() > 310) {
+                    var currentScroll = $(window).scrollTop();
+                    //console.log(unfixmeTop + ' :: ' + currentScroll);
+                    var header = $('.cs-tourdetial-search');
+                    var headerHeight = header.outerHeight();
+                    var body = $('body .wrapper');
+                    if (currentScroll >= unfixmeTop) {
+                        header.addClass('cs-tourdetial-search-bottom').removeClass('cs-tourdetial-search-fixed');
+                        jQuery(".cs-list-short").removeClass("cs-list-short-fixed");
+                    } else if (currentScroll >= fixmeTop) {
+                        header.addClass('cs-tourdetial-search-fixed').removeClass('cs-tourdetial-search-bottom');
+                        jQuery(".cs-list-short").addClass("cs-list-short-fixed");
+                    } else if (currentScroll <= fixmeTop) {
+                        header.removeClass('cs-tourdetial-search-fixed').removeClass('cs-tourdetial-search-bottom');
+                        jQuery(".cs-list-short").removeClass("cs-list-short-fixed");
+                    } else {
+                        header.removeClass('cs-tourdetial-search-fixed').removeClass('cs-tourdetial-search-bottom');
+                    }
+                }
+            });
+        }
 
 
     });
