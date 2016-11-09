@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Application\Sonata\MediaBundle\Entity\Media;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +37,15 @@ class Location
     private $description;
 
     /**
+     * @var Media
+     * @link http://stackoverflow.com/questions/14257004/doctrine2-symfony2-cascading-remove-integrity-constraint-violation-1451
+     *
+     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media", cascade={"all"})
+     * @ORM\JoinColumn(name="hinhAnh", referencedColumnName="id", onDelete="SET NULL")
+     */
+    private $featuredImage;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="diaDiem", type="string")
@@ -43,7 +53,7 @@ class Location
     private $location;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TourLocation", mappedBy="location", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TourLocation", mappedBy="location", cascade={"persist"}, orphanRemoval=true)
      */
     private $tours;
 
@@ -206,5 +216,29 @@ class Location
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * Set featuredImage
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Media $featuredImage
+     *
+     * @return Location
+     */
+    public function setFeaturedImage(\Application\Sonata\MediaBundle\Entity\Media $featuredImage = null)
+    {
+        $this->featuredImage = $featuredImage;
+
+        return $this;
+    }
+
+    /**
+     * Get featuredImage
+     *
+     * @return \Application\Sonata\MediaBundle\Entity\Media
+     */
+    public function getFeaturedImage()
+    {
+        return $this->featuredImage;
     }
 }

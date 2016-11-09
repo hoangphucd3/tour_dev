@@ -186,12 +186,4 @@ class TourHotel
     {
         return $this->hotel;
     }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getTour()->getTourName() . ' - ' . $this->getHotel()->getName();
-    }
 }

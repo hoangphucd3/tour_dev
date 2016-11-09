@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\MediaBundle\Form\Type\MediaType;
 
 class LocationAdmin extends AbstractAdmin
 {
@@ -53,6 +54,11 @@ class LocationAdmin extends AbstractAdmin
             ->add('name')
             ->add('description')
             ->add('location')
+            ->add('featuredImage', MediaType::class, array(
+                    'provider' => 'sonata.media.provider.image',
+                    'context' => 'default'
+                )
+            )
         ;
     }
 

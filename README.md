@@ -76,6 +76,14 @@ http://stackoverflow.com/questions/31746525/how-to-rename-file-upload-with-sonat
 
 http://stackoverflow.com/questions/23507505/using-a-repository-outside-of-a-controller-in-symfony2
 
+http://stackoverflow.com/questions/11062089/symfony2-sonata-admin-access-container
+
+http://problematic.io/2012/03/12/putting-your-symfony2-controllers-on-a-diet-part-2/
+
+http://stackoverflow.com/questions/24877396/sonata-admin-forms-with-dynamic-fields
+
+http://stackoverflow.com/questions/14257004/doctrine2-symfony2-cascading-remove-integrity-constraint-violation-1451
+
 [1]:  https://symfony.com/doc/3.0/book/installation.html
 [6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
 [7]:  https://symfony.com/doc/3.0/book/doctrine.html

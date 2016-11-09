@@ -43,14 +43,14 @@ class Hotel
     private $address;
 
     /**
-     * @var array
+     * @var string
      *
-     * @ORM\Column(name="soDT", type="array")
+     * @ORM\Column(name="soDT", type="string")
      */
     private $phoneNumber;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TourHotel", mappedBy="hotel", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TourHotel", mappedBy="hotel", cascade={"persist"}, orphanRemoval=true)
      */
     private $tours;
 

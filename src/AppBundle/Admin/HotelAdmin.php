@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Hotel;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -51,7 +52,6 @@ class HotelAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('id')
             ->add('name')
             ->add('description')
             ->add('address')
@@ -82,7 +82,7 @@ class HotelAdmin extends AbstractAdmin
      */
     public function toString($object)
     {
-        return $object instanceof Location
+        return $object instanceof Hotel
             ? $object->getName()
             : ''; // shown in the breadcrumb on the create view
     }

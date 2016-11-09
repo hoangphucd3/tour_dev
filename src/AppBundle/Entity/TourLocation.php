@@ -156,12 +156,4 @@ class TourLocation
     {
         return $this->location;
     }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getTour()->getTourName() . ' - ' . $this->getLocation()->getName();
-    }
 }

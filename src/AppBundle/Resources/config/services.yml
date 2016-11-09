@@ -34,3 +34,9 @@ services:
         arguments: [~, AppBundle\Entity\User, AppBundle:UserAdmin]
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: User }
+
+    app.admin.tour_category:
+        class: AppBundle\Admin\TourCategoryAdmin
+        arguments: [~, AppBundle\Entity\TourCategory, AppBundle:TourCategoryAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: TourCategory }

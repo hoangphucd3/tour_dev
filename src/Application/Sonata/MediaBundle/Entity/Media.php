@@ -11,6 +11,8 @@
 
 namespace Application\Sonata\MediaBundle\Entity;
 
+use AppBundle\Entity\Tour;
+use Doctrine\ORM\Mapping as ORM;
 use Sonata\MediaBundle\Entity\BaseMedia as BaseMedia;
 
 /**

@@ -27,8 +27,7 @@ class UserAdmin extends AbstractAdmin
             ->add('id_number')
             ->add('address')
             ->add('phoneNumber')
-            ->add('roles')
-        ;
+            ->add('roles');
     }
 
     /**
@@ -48,15 +47,22 @@ class UserAdmin extends AbstractAdmin
             ->add('id_number')
             ->add('address')
             ->add('phoneNumber')
-            ->add('roles')
+            // https://github.com/sonata-project/SonataAdminBundle/issues/1023
+            ->add('roles', 'choice', [
+                'multiple' => true,
+                'choices' => [
+                    'ROLE_USER' => 'user',
+                    'ROLE_ADMIN' => 'admin',
+                    'ROLE_SUPER_ADMIN' => 'super admin'
+                ]
+            ])
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
                 )
-            ))
-        ;
+            ));
     }
 
     /**
@@ -64,6 +70,11 @@ class UserAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $container = $this->getConfigurationPool()->getContainer();
+        $roles = $container->getParameter('security.role_hierarchy.roles');
+
+        $rolesChoices = self::flattenRoles($roles);
+
         $formMapper
             ->add('id')
             ->add('username')
@@ -76,8 +87,11 @@ class UserAdmin extends AbstractAdmin
             ->add('id_number')
             ->add('address')
             ->add('phoneNumber')
-            ->add('roles')
-        ;
+            ->add('roles', 'choice', array(
+                    'choices' => $rolesChoices,
+                    'multiple' => true,
+                )
+            );
     }
 
     /**
@@ -97,7 +111,31 @@ class UserAdmin extends AbstractAdmin
             ->add('id_number')
             ->add('address')
             ->add('phoneNumber')
-            ->add('roles')
-        ;
+            ->add('roles');
+    }
+
+    /**
+     * Turns the role's array keys into string <ROLES_NAME> keys.
+     *
+     * @param $rolesHierarchy
+     * @return array
+     */
+    protected static function flattenRoles($rolesHierarchy)
+    {
+        $flatRoles = [];
+        foreach ($rolesHierarchy as $key => $roles) {
+            $flatRoles[$key] = $key;
+            if (empty($roles)) {
+                continue;
+            }
+
+            foreach ($roles as $role) {
+                if (!isset($flatRoles[$role])) {
+                    $flatRoles[$role] = $role;
+                }
+            }
+        }
+
+        return $flatRoles;
     }
 }
