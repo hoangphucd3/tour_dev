@@ -66,6 +66,27 @@ class Tour
     private $description;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="trangThai", type="string", nullable=true)
+     */
+    private $status;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="giaThongThuong", type="bigint")
+     */
+    private $regularPrice;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="giaBan", type="bigint", nullable=true)
+     */
+    private $salePrice;
+
+    /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\TourLocation", mappedBy="tour", cascade={"persist"}, orphanRemoval=true)
      */
     private $locations;
@@ -83,13 +104,6 @@ class Tour
     private $category;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="trangThai", type="string", nullable=true)
-     */
-    private $status;
-
-    /**
      * @var Media
      * @link http://bertrandg.github.io/symfony2-sonata-media-inline-validation-type-and-size/
      *
@@ -100,23 +114,14 @@ class Tour
     /**
      * @var Gallery
      *
-     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Gallery", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Gallery", cascade={"all"})
      */
     private $gallery;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="giaThongThuong", type="bigint")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TourBackground", mappedBy="tour", cascade={"persist"}, orphanRemoval=true)
      */
-    private $regularPrice;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="giaBan", type="bigint", nullable=true)
-     */
-    private $salePrice;
+    private $backgrounds;
 
     /**
      * Get id
@@ -140,6 +145,7 @@ class Tour
     {
         $this->locations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->hotels = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->backgrounds = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -539,5 +545,80 @@ class Tour
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Set gallery
+     *
+     * @param \Application\Sonata\MediaBundle\Entity\Gallery $gallery
+     *
+     * @return Tour
+     */
+    public function setGallery(\Application\Sonata\MediaBundle\Entity\Gallery $gallery = null)
+    {
+        $this->gallery = $gallery;
+
+        return $this;
+    }
+
+    /**
+     * Get gallery
+     *
+     * @return \Application\Sonata\MediaBundle\Entity\Gallery
+     */
+    public function getGallery()
+    {
+        return $this->gallery;
+    }
+
+    /**
+     * Set backgrounds
+     *
+     * @param $backgrounds
+     * @return $this
+     */
+    public function setBackgrounds($backgrounds)
+    {
+        foreach ($backgrounds as $background) {
+            $this->addBackground($background);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Add background
+     *
+     * @param \AppBundle\Entity\TourBackground $background
+     *
+     * @return Tour
+     */
+    public function addBackground(\AppBundle\Entity\TourBackground $background)
+    {
+        $background->setTour($this);
+
+        $this->backgrounds[] = $background;
+
+        return $this;
+    }
+
+    /**
+     * Remove background
+     *
+     * @param \AppBundle\Entity\TourBackground $background
+     */
+    public function removeBackground(\AppBundle\Entity\TourBackground $background)
+    {
+        $this->backgrounds->removeElement($background);
+    }
+
+    /**
+     * Get backgrounds
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBackgrounds()
+    {
+        return $this->backgrounds;
     }
 }

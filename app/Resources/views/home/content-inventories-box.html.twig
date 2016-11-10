@@ -1,11 +1,9 @@
 <div class="page-content col-lg-3 col-md-3 col-sm-6 col-xs-12">
     <div class="cs-list grid">
-        <div class="cs-media classic">
-            <span class="cs-off-price">{{ tour.discountPercent }} <em>Off</em></span>
-        </div>
-
         <div class="cs-media grid">
-            <span class="cs-off-price">{{ tour.discountPercent }}%<em>Off</em></span>
+            {% if tour.discountPercent %}
+                <span class="cs-off-price">{{ tour.discountPercent }}%<em>Off</em></span>
+            {% endif %}
             <figure>
                 <a href="{{ path('tour_detail', { 'slug': tour.slug }) }}">
                     <img src="{% path tour.featuredImage, 'reference' %}"

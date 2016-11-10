@@ -40,3 +40,9 @@ services:
         arguments: [~, AppBundle\Entity\TourCategory, AppBundle:TourCategoryAdmin]
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: TourCategory }
+
+    app.admin.tour_background:
+        class: AppBundle\Admin\TourBackgroundAdmin
+        arguments: [~, AppBundle\Entity\TourBackground, AppBundle:TourBackgroundAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: TourBackground }

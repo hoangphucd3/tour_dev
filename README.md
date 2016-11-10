@@ -84,6 +84,12 @@ http://stackoverflow.com/questions/24877396/sonata-admin-forms-with-dynamic-fiel
 
 http://stackoverflow.com/questions/14257004/doctrine2-symfony2-cascading-remove-integrity-constraint-violation-1451
 
+http://stackoverflow.com/questions/24365113/how-to-get-images-listed-in-sonata-admin-bundle-backend
+
+http://stackoverflow.com/questions/11612966/how-to-implement-many-to-many-relationships-in-sonata-media-bundle
+
+http://stackoverflow.com/questions/15657687/twig-date-difference
+
 [1]:  https://symfony.com/doc/3.0/book/installation.html
 [6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
 [7]:  https://symfony.com/doc/3.0/book/doctrine.html

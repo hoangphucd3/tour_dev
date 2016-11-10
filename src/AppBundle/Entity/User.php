@@ -97,15 +97,23 @@ class User implements UserInterface, \Serializable
     private $roles;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="user", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="user", cascade={"persist"})
      */
     private $comments;
+
+    /**
+     * @var TourOrder
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TourOrder", mappedBy="customer", cascade={"persist"})
+     */
+    private $orders;
 
     public function __construct()
     {
         $this->isActive = true;
         $this->roles = array();
         $this->comments = new ArrayCollection();
+        $this->orders = new ArrayCollection();
     }
 
     public function getUsername()
@@ -552,5 +560,39 @@ class User implements UserInterface, \Serializable
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Add order
+     *
+     * @param \AppBundle\Entity\TourOrder $order
+     *
+     * @return User
+     */
+    public function addOrder(\AppBundle\Entity\TourOrder $order)
+    {
+        $this->orders[] = $order;
+
+        return $this;
+    }
+
+    /**
+     * Remove order
+     *
+     * @param \AppBundle\Entity\TourOrder $order
+     */
+    public function removeOrder(\AppBundle\Entity\TourOrder $order)
+    {
+        $this->orders->removeElement($order);
+    }
+
+    /**
+     * Get orders
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOrders()
+    {
+        return $this->orders;
     }
 }

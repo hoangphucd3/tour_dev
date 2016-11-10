@@ -1,0 +1,10 @@
+.package-info-wrapper .package-info {
+    padding: 0;
+    margin: 3px 0;
+    position: relative;
+    line-height: 34px;
+}
+
+.package-info-wrapper i {
+    margin-right: 3px;
+}
